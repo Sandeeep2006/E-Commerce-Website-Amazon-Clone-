@@ -22,6 +22,8 @@ const products =[{
     priceCents:799
 }]
 
+let accumulator="";
+
 products.forEach((things)=>{
     const html=`
     <div class="product-container">
@@ -30,18 +32,18 @@ products.forEach((things)=>{
         </div>
 
         <div class="product-name limit-text-to-2-lines">
-          ${things.name.} 
+          ${things.name} 
         </div>
 
         <div class="product-rating-container">
-          <img class="product-rating-stars" src="images/ratings/rating-40.png">
+          <img class="product-rating-stars" src="images/ratings/rating-${things.rating.stars *10}.png">
           <div class="product-rating-count link-primary">
-            127
+            ${things.rating.count}
           </div>
         </div>
 
         <div class="product-price">
-          $20.95
+          $${(things.priceCents/100).toFixed(2)}
         </div>
 
         <div class="product-quantity-container">
@@ -71,5 +73,10 @@ products.forEach((things)=>{
         </button>
       </div>
     `
+    accumulator+=html;
     console.log(html)
 })
+
+console.log(accumulator);
+
+document.querySelector('.js-product-grid').innerHTML=accumulator;
