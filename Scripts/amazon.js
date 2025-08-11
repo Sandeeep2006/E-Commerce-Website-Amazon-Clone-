@@ -101,7 +101,6 @@ document.querySelectorAll('.js-add-to-cart-functionality').forEach((button)=>{
     } else {
       cart.push({ productId: productDetails, quantity: 1 });
     }
-
-    console.log(cart);
+    document.querySelector('.cart-quantity').innerHTML=cart.length;
   });
 });
