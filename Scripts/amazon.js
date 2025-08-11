@@ -3,8 +3,6 @@
 // -->Generate the HTML
 // -->Make it interactive
 
-console.log("Hello");
-
 // const products =[{
 //     imageSrc:"images/products/athletic-cotton-socks-6-pairs.jpg",
 //     name:"Black and Gray Athletic Cotton Socks - 6 Pairs",
@@ -78,15 +76,32 @@ products.forEach((things)=>{
           Added
         </div>
 
-        <button class="add-to-cart-button button-primary">
+        <button class="add-to-cart-button button-primary js-add-to-cart-functionality"
+          data-product-Id="${things.id}">
           Add to Cart
         </button>
       </div>
     `
+     // using the 'data-' attribute to pass information to the 'cart.js' 
     accumulator+=html;
-    console.log(html)
+    // console.log(html)
 })
 
-console.log(accumulator);
+// console.log(accumulator);
 
 document.querySelector('.js-product-grid').innerHTML=accumulator;
+
+document.querySelectorAll('.js-add-to-cart-functionality').forEach((button)=>{
+  button.addEventListener('click',()=>{
+    const productDetails=button.dataset.productId;    //convert the name from kebab case to camel case
+    const index = cart.findIndex(item => item.productId === productDetails);
+
+    if (index !== -1) {
+      cart[index].quantity += 1;
+    } else {
+      cart.push({ productId: productDetails, quantity: 1 });
+    }
+
+    console.log(cart);
+  });
+});
