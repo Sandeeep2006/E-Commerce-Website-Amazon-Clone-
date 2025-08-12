@@ -30,8 +30,9 @@
 //   priceCents:2067
 // }]
 
-import {cart} from '../data/cart.js';
-import { products } from '../data/products.js';
+//import * as cartModule from '../data/cart.js'      //can get items cart like cartModules.cart (imports all)
+import {cart,addToCart} from '../data/cart.js';
+import {products} from '../data/products.js'
 
 let accumulator="";
 
@@ -85,25 +86,17 @@ products.forEach((things)=>{
         </button>
       </div>
     `
-     // using the 'data-' attribute to pass information to the 'cart.js' 
+    // using the 'data-' attribute to pass information to the 'cart.js' 
     accumulator+=html;
-    // console.log(html)
 })
-
-// console.log(accumulator);
-
 document.querySelector('.js-product-grid').innerHTML=accumulator;
+
 
 document.querySelectorAll('.js-add-to-cart-functionality').forEach((button)=>{
   button.addEventListener('click',()=>{
     const productDetails=button.dataset.productId;    //convert the name from kebab case to camel case
-    const index = cart.findIndex(item => item.productId === productDetails);
+    addToCart(productDetails,button);
 
-    if (index !== -1) {
-      cart[index].quantity += 1;
-    } else {
-      cart.push({ productId: productDetails, quantity: 1 });
-    }
-    document.querySelector('.cart-quantity').innerHTML=cart.length;
+    // console.log(cart);
   });
 });
