@@ -33,6 +33,7 @@
 //import * as cartModule from '../data/cart.js'      //can get items cart like cartModules.cart (imports all)
 import {cart,addToCart} from '../data/cart.js';
 import {products} from '../data/products.js'
+import {format} from './Utils/currencyformatter.js'
 
 let accumulator="";
 
@@ -55,7 +56,7 @@ products.forEach((things)=>{
         </div>
 
         <div class="product-price">
-          $${(things.priceCents/100).toFixed(2)}
+          $${format(things.priceCents)}
         </div>
 
         <div class="product-quantity-container">
