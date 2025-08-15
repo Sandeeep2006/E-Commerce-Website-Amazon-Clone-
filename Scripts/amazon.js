@@ -92,12 +92,19 @@ products.forEach((things)=>{
 })
 document.querySelector('.js-product-grid').innerHTML=accumulator;
 
+function updateCartQuantity(){
+  let cartQuantity=0;
+  cart.forEach((item)=>{
+    cartQuantity+=item.quant;
+  });
+  document.querySelector('.js-cart-quantity').innerHTML=cartQuantity;
+}
 
 document.querySelectorAll('.js-add-to-cart-functionality').forEach((button)=>{
   button.addEventListener('click',()=>{
     const productDetails=button.dataset.productId;    //convert the name from kebab case to camel case
-    addToCart(productDetails,button);
-
+    addToCart(productDetails);
+    updateCartQuantity();
     // console.log(cart);
   });
 });
