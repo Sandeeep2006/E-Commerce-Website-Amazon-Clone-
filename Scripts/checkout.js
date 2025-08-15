@@ -7,13 +7,13 @@ cart.forEach((cartItem)=>{
     const prodId=cartItem.id;
     let productItem;
     products.forEach((item=>{
-        if (item.id===cartItem.id)
+        if (item.id===prodId)
         productItem=item;
     } ))
     console.log(productItem);
 
     const html=`
-    <div class="cart-item-container">
+    <div class="cart-item-container js-cart-item-container-${productItem.id}">
             <div class="delivery-date">
               Delivery date: Tuesday, June 21
             </div>
@@ -99,6 +99,9 @@ document.querySelectorAll('.js-delete-quantity-link').forEach((link)=>{
   link.addEventListener('click', ()=>{
     const productId=link.dataset.productId;
     removeFromCart(productId);
-    console.log(cart);
+    // console.log(cart);
+    const container=document.querySelector(`.js-cart-item-container-${productId}`);
+    console.log(container);
+    container.remove();
   })
 });
