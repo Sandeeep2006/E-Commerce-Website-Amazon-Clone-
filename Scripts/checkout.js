@@ -6,13 +6,13 @@ let accumulator="";
 cart.forEach((cartItem)=>{
     const prodId=cartItem.id;
     let productItem;
-    products.forEach((item=>{
-        if (item.id===prodId)
-        productItem=item;
-    } ))
-    console.log(productItem);
+    products.forEach((item)=>{
+        if (item.id===prodId){
+          productItem=item;
+        }
+    })
 
-    const html=`
+    accumulator+=`
     <div class="cart-item-container js-cart-item-container-${productItem.id}">
             <div class="delivery-date">
               Delivery date: Tuesday, June 21
@@ -88,9 +88,8 @@ cart.forEach((cartItem)=>{
               </div>
             </div>
           </div>
-    `
-    accumulator+=html;
-})
+    `;
+});
 document.querySelector('.js-order-summary').innerHTML=accumulator;
 
 
