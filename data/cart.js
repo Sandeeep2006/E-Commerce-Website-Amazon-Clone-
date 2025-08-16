@@ -2,10 +2,12 @@ export let cart = JSON.parse(localStorage.getItem('cart'));
 if (!cart){
     cart=[{
     id: "3ebe75dc-64d2-4137-8860-1f5a963e534b",
-    quant:1},
+    quant:1,
+    deliveryOptionId:1},
     {
     id: "8c9c52b5-5a19-4bcb-a5d1-158a74287c53",
-    quant:1}
+    quant:1,
+    deliveryOptionId:2}
     ];
 }
 
@@ -26,7 +28,8 @@ export function addToCart(prodId) {                //going to get this using mod
     }else{
         cart.push({
             id:prodId,
-            quant:1
+            quant:1,
+            deliveryOptionId:1
         });
     }
 
