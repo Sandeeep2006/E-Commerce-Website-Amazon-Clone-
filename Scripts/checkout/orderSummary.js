@@ -3,7 +3,7 @@ import { products } from '../../data/products.js';
 import { format } from '../Utils/currencyformatter.js';
 import dayjs from 'https://unpkg.com/dayjs@1.11.10/esm/index.js';  //ESM import , default import (no curly braces;when need to import only 1 thing present in the file)
 import { deliveryOptions } from "../../data/deliveryOptions.js";
-
+import { renderPaymentSummary } from './paymentSummary.js';
 
 export function renderOrderSummary(){
   let accumulator = "";
@@ -77,8 +77,9 @@ export function renderOrderSummary(){
       removeFromCart(productId);
       // console.log(cart);
       const container = document.querySelector(`.js-cart-item-container-${productId}`);
-      console.log(container);
+    //   console.log(container);
       container.remove();
+      renderPaymentSummary();
     })
   });
 
@@ -122,6 +123,7 @@ export function renderOrderSummary(){
       const deliId = element.dataset.deliveryOption;
       updateDeliveryOption(proId, deliId);
       renderOrderSummary();                   //updating the data and then rendering the whole page again.
+      renderPaymentSummary();
     })
   });
 }
