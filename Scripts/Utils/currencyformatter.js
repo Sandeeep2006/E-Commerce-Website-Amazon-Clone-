@@ -1,3 +1,3 @@
 export function format(variable) {
-    return (variable / 100).toFixed(2);
+    return (Math.round(variable) / 100).toFixed(2);
 }
