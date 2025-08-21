@@ -1,15 +1,15 @@
 class Cart{
     cartItems;
-    localStorageVariable;
+    #localStorageVariable;
 
     //running our setup code using constructor
     constructor(localStorageKey){
-        this.localStorageVariable=localStorageKey
-        this.loadFromStorage();
+        this.#localStorageVariable=localStorageKey
+        this.#loadFromStorage();
     }
 
-    loadFromStorage() {
-        this.cartItems = JSON.parse(localStorage.getItem(this.localStorageVariable));
+    #loadFromStorage() {
+        this.cartItems = JSON.parse(localStorage.getItem(this.#localStorageVariable));
         if (!this.cartItems) {
             this.cartItems = [{
                 id: "3ebe75dc-64d2-4137-8860-1f5a963e534b",
@@ -25,7 +25,7 @@ class Cart{
     }
 
      saveToStorage() {
-        localStorage.setItem(this.localStorageVariable, JSON.stringify(this.cartItems));
+        localStorage.setItem(this.#localStorageVariable, JSON.stringify(this.cartItems));
     }
 
     addToCart(prodId) {                //going to get this using modules

@@ -33,7 +33,7 @@
 //import * as cartModule from '../data/cart.js'      //can get items cart like cartModules.cart (imports all)
 import {cart,addToCart} from '../data/cart.js';
 import {products} from '../data/products.js'
-import {format} from './Utils/currencyformatter.js'
+// import {format} from './Utils/currencyformatter.js'
 
 let accumulator="";
 
@@ -49,14 +49,14 @@ products.forEach((things)=>{
         </div>
 
         <div class="product-rating-container">
-          <img class="product-rating-stars" src="images/ratings/rating-${things.rating.stars *10}.png">
+          <img class="${things.getStarUrl()}">
           <div class="product-rating-count link-primary">
             ${things.rating.count}
           </div>
         </div>
 
         <div class="product-price">
-          $${format(things.priceCents)}
+          ${things.getPrice()}
         </div>
 
         <div class="product-quantity-container">
@@ -73,6 +73,8 @@ products.forEach((things)=>{
             <option value="10">10</option>
           </select>
         </div>
+
+        ${things.extraInfoHtml()}
 
         <div class="product-spacer"></div>
 
