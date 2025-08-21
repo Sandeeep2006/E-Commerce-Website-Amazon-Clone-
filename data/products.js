@@ -58,7 +58,28 @@ const tshirt = new Clothing({
 })
 console.log(tshirt);
 
+export let products=[];
 
+export function loadProducts(fun){
+  const xhr=new XMLHttpRequest();
+
+  xhr.addEventListener('load',()=>{
+    products=JSON.parse(xhr.response).map((item) => {
+      if (item.type === 'clothing') {
+        return new Clothing(item);
+      }
+      return new Product(item);       //converting the single object into a class
+    });
+    console.log("Products Loaded");
+    fun();
+  });
+  xhr.open('GET','https://supersimplebackend.dev/products');
+  xhr.send();
+}
+loadProducts();
+
+
+/*
 export const products = [
   {
     id: "e43638ce-6aa0-4b85-b27f-e1d07eb678c6",
@@ -727,3 +748,4 @@ export const products = [
 
 const product1 = new Product(products)
 console.log(products);
+*/

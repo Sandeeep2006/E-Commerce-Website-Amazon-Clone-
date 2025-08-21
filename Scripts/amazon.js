@@ -32,81 +32,85 @@
 
 //import * as cartModule from '../data/cart.js'      //can get items cart like cartModules.cart (imports all)
 import {cart,addToCart} from '../data/cart.js';
-import {products} from '../data/products.js'
+import {products,loadProducts} from '../data/products.js'
 // import {format} from './Utils/currencyformatter.js'
 
-let accumulator="";
+loadProducts(renderHomePage);
 
-products.forEach((things)=>{
-    const html=`
-    <div class="product-container">
-        <div class="product-image-container">
-          <img class="product-image" src=${things.image}>
-        </div>
+function renderHomePage(){
+  let accumulator="";
 
-        <div class="product-name limit-text-to-2-lines">
-          ${things.name} 
-        </div>
-
-        <div class="product-rating-container">
-          <img class="${things.getStarUrl()}">
-          <div class="product-rating-count link-primary">
-            ${things.rating.count}
+  products.forEach((things)=>{
+      const html=`
+      <div class="product-container">
+          <div class="product-image-container">
+            <img class="product-image" src=${things.image}>
           </div>
+
+          <div class="product-name limit-text-to-2-lines">
+            ${things.name} 
+          </div>
+
+          <div class="product-rating-container">
+            <img class="${things.getStarUrl()}">
+            <div class="product-rating-count link-primary">
+              ${things.rating.count}
+            </div>
+          </div>
+
+          <div class="product-price">
+            ${things.getPrice()}
+          </div>
+
+          <div class="product-quantity-container">
+            <select>
+              <option selected value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+              <option value="6">6</option>
+              <option value="7">7</option>
+              <option value="8">8</option>
+              <option value="9">9</option>
+              <option value="10">10</option>
+            </select>
+          </div>
+
+          ${things.extraInfoHtml()}
+
+          <div class="product-spacer"></div>
+
+          <div class="added-to-cart">
+            <img src="images/icons/checkmark.png">
+            Added
+          </div>
+
+          <button class="add-to-cart-button button-primary js-add-to-cart-functionality"
+            data-product-Id="${things.id}">
+            Add to Cart
+          </button>
         </div>
+      `
+      // using the 'data-' attribute to pass information to the 'cart.js' 
+      accumulator+=html;
+  })
+  document.querySelector('.js-product-grid').innerHTML=accumulator;
 
-        <div class="product-price">
-          ${things.getPrice()}
-        </div>
+  function updateCartQuantity(){
+    let cartQuantity=0;
+    cart.forEach((item)=>{
+      cartQuantity+=item.quant;
+    });
+    document.querySelector('.js-cart-quantity').innerHTML=cartQuantity;
+  }
 
-        <div class="product-quantity-container">
-          <select>
-            <option selected value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-            <option value="5">5</option>
-            <option value="6">6</option>
-            <option value="7">7</option>
-            <option value="8">8</option>
-            <option value="9">9</option>
-            <option value="10">10</option>
-          </select>
-        </div>
-
-        ${things.extraInfoHtml()}
-
-        <div class="product-spacer"></div>
-
-        <div class="added-to-cart">
-          <img src="images/icons/checkmark.png">
-          Added
-        </div>
-
-        <button class="add-to-cart-button button-primary js-add-to-cart-functionality"
-          data-product-Id="${things.id}">
-          Add to Cart
-        </button>
-      </div>
-    `
-    // using the 'data-' attribute to pass information to the 'cart.js' 
-    accumulator+=html;
-})
-document.querySelector('.js-product-grid').innerHTML=accumulator;
-
-function updateCartQuantity(){
-  let cartQuantity=0;
-  cart.forEach((item)=>{
-    cartQuantity+=item.quant;
+  document.querySelectorAll('.js-add-to-cart-functionality').forEach((button)=>{
+    button.addEventListener('click',()=>{
+      const productDetails=button.dataset.productId;    //convert the name from kebab case to camel case
+      addToCart(productDetails);
+      updateCartQuantity();
+      // console.log(cart);
+    });
   });
-  document.querySelector('.js-cart-quantity').innerHTML=cartQuantity;
 }
-
-document.querySelectorAll('.js-add-to-cart-functionality').forEach((button)=>{
-  button.addEventListener('click',()=>{
-    const productDetails=button.dataset.productId;    //convert the name from kebab case to camel case
-    addToCart(productDetails);
-    updateCartQuantity();
-    // console.log(cart);
-  });
-});
