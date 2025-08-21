@@ -52,10 +52,24 @@ export function renderPaymentSummary(){
           <div class="payment-summary-money">$${format(finalAfterTax)}</div>
         </div>
 
-        <button class="place-order-button button-primary">
+        <button class="place-order-button button-primary js-place-order">
           Place your order
         </button>
     `;
 
     document.querySelector('.js-payment-summary').innerHTML=paymentHTML;
+
+    document.querySelector('.js-place-order').addEventListener('click',async ()=>{
+      const response=await fetch('https://supersimplebackend.dev/orders',{
+        method:"POST",
+        headers :{
+          'Content-Type':'application/json'
+        },
+        body:JSON.stringify({
+          cart:cart
+        })
+      });
+      const order=await response.json;
+      console.log(order);
+    })
 }

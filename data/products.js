@@ -71,13 +71,12 @@ export function loadProducts(fun){
       return new Product(item);       //converting the single object into a class
     });
     console.log("Products Loaded");
+
     fun();
   });
   xhr.open('GET','https://supersimplebackend.dev/products');
   xhr.send();
 }
-loadProducts();
-
 
 /*
 export const products = [
