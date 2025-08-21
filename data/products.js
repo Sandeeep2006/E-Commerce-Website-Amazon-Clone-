@@ -60,6 +60,28 @@ console.log(tshirt);
 
 export let products=[];
 
+export function loadProductsFetch(){
+  const promise=fetch('https://supersimplebackend.dev/products').then((response)=>{   //creates a promise by default
+    return response.json(); 
+  }).then((productsData)=>{
+     products=productsData.map((item) => {
+      if (item.type === 'clothing') {
+        return new Clothing(item);
+      }
+      return new Product(item);       //converting the single object into a class
+    });
+    console.log("Products Loaded");
+
+  })    
+  return promise;
+}
+
+
+/*
+loadProductsFetch().then(()=>{
+  console.log('next-step')
+});
+
 export function loadProducts(fun){
   const xhr=new XMLHttpRequest();
 
@@ -77,6 +99,7 @@ export function loadProducts(fun){
   xhr.open('GET','https://supersimplebackend.dev/products');
   xhr.send();
 }
+*/
 
 /*
 export const products = [
