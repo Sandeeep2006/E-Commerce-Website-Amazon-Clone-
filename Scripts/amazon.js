@@ -32,10 +32,12 @@
 
 //import * as cartModule from '../data/cart.js'      //can get items cart like cartModules.cart (imports all)
 import {cart,addToCart} from '../data/cart.js';
-import {products,loadProducts} from '../data/products.js'
+import {products,loadProductsFetch} from '../data/products.js'
 // import {format} from './Utils/currencyformatter.js'
 
-loadProducts(renderHomePage);
+loadProductsFetch().then(() => {
+  renderHomePage();
+});
 
 function renderHomePage(){
   let accumulator="";
